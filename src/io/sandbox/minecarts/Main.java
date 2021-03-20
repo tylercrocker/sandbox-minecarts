@@ -1,5 +1,5 @@
 package io.sandbox.minecarts;
 
-public class main {
+public class Main {
 
 }
