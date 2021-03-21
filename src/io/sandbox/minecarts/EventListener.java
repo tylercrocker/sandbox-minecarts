@@ -39,7 +39,7 @@ public class EventListener implements Listener {
         
         Block leftBlock;
         Block rightBlock;
-        switch ((int) cartLocation.getYaw()) {
+        switch (Math.abs((int) cartLocation.getYaw())) {
         case 0:
         	leftBlock = rail.getRelative(BlockFace.NORTH);
         	rightBlock = rail.getRelative(BlockFace.SOUTH);
@@ -57,13 +57,14 @@ public class EventListener implements Listener {
         	rightBlock = rail.getRelative(BlockFace.SOUTH);
         	break;
         default:
-        	return; // Not sure how this would ever happen, but the code complains.
+        	// This only happens when the minecart is just entering the block and can be ignored.
+        	return;
         }
         
-        if (leftBlock.getType() != Material.BELL || 
-        	rightBlock.getType() != Material.BELL || 
-        	leftBlock.getRelative(BlockFace.DOWN).getType() != Material.REDSTONE_BLOCK ||
-        	rightBlock.getRelative(BlockFace.DOWN).getType() != Material.REDSTONE_BLOCK) {
+        if (leftBlock.getType() != Material.END_ROD || 
+        	rightBlock.getType() != Material.END_ROD || 
+        	leftBlock.getRelative(BlockFace.DOWN).getType() != Material.GOLD_BLOCK ||
+        	rightBlock.getRelative(BlockFace.DOWN).getType() != Material.GOLD_BLOCK) {
         	cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER);
         	return;
         }
