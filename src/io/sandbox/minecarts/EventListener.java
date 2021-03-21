@@ -52,15 +52,12 @@ public class EventListener implements Listener {
         	leftBlock = rail.getRelative(BlockFace.WEST);
         	rightBlock = rail.getRelative(BlockFace.SOUTH);
         	break;
+        default:
+        	return;
         }
         
-//        Block blockBelow = cartsWorld.getBlockAt(cartLocation.add(0, -1, 0));
-//        if (blockBelow.getType() == boostBlock) {
-//            cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER * 4d);
-//        } else {
-//            
-//        }
+        if (leftBlock.getType() != Material.BELL || rightBlock.getType() != Material.BELL) { return; }
         
-        cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER);
+     	cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER * 4d);
     }
 }
