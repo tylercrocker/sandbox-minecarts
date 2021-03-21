@@ -53,7 +53,7 @@ public class EventListener implements Listener {
         	rightBlock = rail.getRelative(BlockFace.SOUTH);
         	break;
         default:
-        	return;
+        	return; // Not sure how this would ever happen, but the code complains.
         }
         
         if (leftBlock.getType() == Material.BELL && rightBlock.getType() == Material.BELL) {
