@@ -39,17 +39,18 @@ public class EventListener implements Listener {
         case 0:
         	leftBlock = rail.getRelative(BlockFace.NORTH);
         	rightBlock = rail.getRelative(BlockFace.SOUTH);
-        	output.consoleInfo(leftBlock.toString());
-        	output.consoleInfo(rightBlock.toString());
         	break;
         case 90:
-        	output.consoleInfo("SOUTH");
+        	leftBlock = rail.getRelative(BlockFace.EAST);
+        	rightBlock = rail.getRelative(BlockFace.WEST);
         	break;
         case 180:
-        	output.consoleInfo("WEST");
+        	leftBlock = rail.getRelative(BlockFace.SOUTH);
+        	rightBlock = rail.getRelative(BlockFace.NORTH);
         	break;
         case 270:
-        	output.consoleInfo("NORTH");
+        	leftBlock = rail.getRelative(BlockFace.WEST);
+        	rightBlock = rail.getRelative(BlockFace.SOUTH);
         	break;
         }
         
