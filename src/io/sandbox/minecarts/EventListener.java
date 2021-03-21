@@ -56,8 +56,10 @@ public class EventListener implements Listener {
         	return;
         }
         
-        if (leftBlock.getType() != Material.BELL || rightBlock.getType() != Material.BELL) { return; }
-        
-     	cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER * 4d);
+        if (leftBlock.getType() == Material.BELL && rightBlock.getType() == Material.BELL) {
+        	cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER * 4d);
+        } else {
+        	cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER);
+        }
     }
 }
