@@ -32,6 +32,10 @@ public class EventListener implements Listener {
         Location cartLocation = cart.getLocation();
         Block rail = cartsWorld.getBlockAt(cartLocation);
         if (rail.getType() != Material.POWERED_RAIL) { return; }
+        if (rail.getRelative(BlockFace.DOWN).getType() != Material.REDSTONE_BLOCK) {
+        	cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER);
+        	return;
+        }
         
         Block leftBlock;
         Block rightBlock;
@@ -56,10 +60,14 @@ public class EventListener implements Listener {
         	return; // Not sure how this would ever happen, but the code complains.
         }
         
-        if (leftBlock.getType() == Material.BELL && rightBlock.getType() == Material.BELL) {
-        	cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER * 4d);
-        } else {
+        if (leftBlock.getType() != Material.BELL || 
+        	rightBlock.getType() != Material.BELL || 
+        	leftBlock.getRelative(BlockFace.DOWN).getType() != Material.REDSTONE_BLOCK ||
+        	rightBlock.getRelative(BlockFace.DOWN).getType() != Material.REDSTONE_BLOCK) {
         	cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER);
+        	return;
         }
+        
+        cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER * 4d);
     }
 }
