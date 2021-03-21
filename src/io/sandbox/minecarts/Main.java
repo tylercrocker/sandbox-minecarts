@@ -16,7 +16,9 @@ public class Main extends JavaPlugin {
 		
 		output.consoleInfo("Sandbox.Minecarts is loading its config...");
 		this.loadConfig();
-        
+		
+		server.getPluginManager().registerEvents(new EventListener(output), this);
+
         output.consoleSuccess("Sandbox.Minecarts has been initiated!");
     }
 

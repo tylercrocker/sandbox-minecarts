@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.EventHandler;
@@ -11,13 +12,14 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
 
+import io.sandbox.helpers.OutputHelper;
+
 public class EventListener implements Listener {
+	OutputHelper output;
 	private static final double BUKKIT_SPEED_MULTIPLIER = 0.4d;
-
-    private Material boostBlock;
-
-    public void MinecartListener(Material boostBlock) {
-        this.boostBlock = boostBlock;
+    
+    public EventListener(OutputHelper theOutputHelper) {
+    	output = theOutputHelper;
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
@@ -31,11 +33,33 @@ public class EventListener implements Listener {
         Block rail = cartsWorld.getBlockAt(cartLocation);
         if (rail.getType() != Material.POWERED_RAIL) { return; }
         
-        Block blockBelow = cartsWorld.getBlockAt(cartLocation.add(0, -1, 0));
-        if (blockBelow.getType() == boostBlock) {
-            cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER * 4);
-        } else {
-            cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER);
+        Block leftBlock;
+        Block rightBlock;
+        switch ((int) cartLocation.getYaw()) {
+        case 0:
+        	leftBlock = rail.getRelative(BlockFace.NORTH);
+        	rightBlock = rail.getRelative(BlockFace.SOUTH);
+        	output.consoleInfo(leftBlock.toString());
+        	output.consoleInfo(rightBlock.toString());
+        	break;
+        case 90:
+        	output.consoleInfo("SOUTH");
+        	break;
+        case 180:
+        	output.consoleInfo("WEST");
+        	break;
+        case 270:
+        	output.consoleInfo("NORTH");
+        	break;
         }
+        
+//        Block blockBelow = cartsWorld.getBlockAt(cartLocation.add(0, -1, 0));
+//        if (blockBelow.getType() == boostBlock) {
+//            cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER * 4d);
+//        } else {
+//            
+//        }
+        
+        cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER);
     }
 }
