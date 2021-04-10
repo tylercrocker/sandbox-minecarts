@@ -37,34 +37,28 @@ public class EventListener implements Listener {
         	return;
         }
         
-        Block leftBlock;
-        Block rightBlock;
-        switch (Math.abs((int) cartLocation.getYaw())) {
-        case 0:
-        	leftBlock = rail.getRelative(BlockFace.NORTH);
-        	rightBlock = rail.getRelative(BlockFace.SOUTH);
+        Block sideOne;
+        Block sideTwo;
+        switch (cart.getFacing().name()) {
+        case "NORTH":
+        case "SOUTH":
+        	sideOne = rail.getRelative(BlockFace.WEST);
+        	sideTwo = rail.getRelative(BlockFace.EAST);
         	break;
-        case 90:
-        	leftBlock = rail.getRelative(BlockFace.EAST);
-        	rightBlock = rail.getRelative(BlockFace.WEST);
-        	break;
-        case 180:
-        	leftBlock = rail.getRelative(BlockFace.SOUTH);
-        	rightBlock = rail.getRelative(BlockFace.NORTH);
-        	break;
-        case 270:
-        	leftBlock = rail.getRelative(BlockFace.WEST);
-        	rightBlock = rail.getRelative(BlockFace.SOUTH);
+        case "EAST":
+        case "WEST":
+        	sideOne = rail.getRelative(BlockFace.NORTH);
+        	sideTwo = rail.getRelative(BlockFace.SOUTH);
         	break;
         default:
-        	// This only happens when the minecart is just entering the block and can be ignored.
+        	// This only happens when the mine cart is just entering the block and can be ignored.
         	return;
         }
         
-        if (leftBlock.getType() != Material.END_ROD || 
-        	rightBlock.getType() != Material.END_ROD || 
-        	leftBlock.getRelative(BlockFace.DOWN).getType() != Material.GOLD_BLOCK ||
-        	rightBlock.getRelative(BlockFace.DOWN).getType() != Material.GOLD_BLOCK) {
+        if (sideOne.getType() != Material.END_ROD || 
+        	sideTwo.getType() != Material.END_ROD || 
+        	sideOne.getRelative(BlockFace.DOWN).getType() != Material.GOLD_BLOCK ||
+        	sideTwo.getRelative(BlockFace.DOWN).getType() != Material.GOLD_BLOCK) {
         	cart.setMaxSpeed(BUKKIT_SPEED_MULTIPLIER);
         	return;
         }
